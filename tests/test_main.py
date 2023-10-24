@@ -1,21 +1,25 @@
-from src.main import A
+import pytest
+
+from src.main import Calculator
 
 
-def test_main():
-    assert A.x == 1
+@pytest.mark.parametrize(
+    ["x", "y", "res"],
+    [
+        (1, 2, 0.5),
+        (5, -1, -5),
+    ]
+)
+def test_divide(x, y, res):
+    assert Calculator().divide(x, y) == res
 
 
-def test_2():
-    assert 2 == 2
-
-
-def test_sum():
-    x = 1
-    y = 2
-    assert x + y == 3
-
-
-def test_division():
-    x = 1
-    y = 2
-    assert x / y == 0.5
+@pytest.mark.parametrize(
+    ["x", "y", "res"],
+    [
+        (1, 2, 3),
+        (5, -1, 4),
+    ]
+)
+def test_add(x, y, res):
+    assert Calculator().add(x, y) == res
