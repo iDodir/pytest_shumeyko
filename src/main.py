@@ -1,19 +1,26 @@
-from typing import Union
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src.candies.repository import CandiesRepository
+from src.candies.schemas import CandySchema
+from src.db import Base, engine
+
+from src.candies.service import CandiesService
+
+# Base.metadata.drop_all(engine)
+# Base.metadata.create_all(engine)
 
 
-class Calculator:
-    def divide(self, x: Union[int, float], y: Union[int, float]) -> int | float:
-        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
-            raise TypeError("Both arguments should be numeric")
-        if y == 0:
-            raise ZeroDivisionError("Cannot divide by zero")
-        return x / y
+print(" Candies ".center(80, "="))
 
-    def add(self, x: Union[int, float], y: Union[int, float]) -> int | float:
-        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
-            raise TypeError("Both arguments should be numeric")
-        return x + y
-
-
-if __name__ == "__main__":
-    calculator = Calculator()
+candy_1 = CandySchema(title="Конфета Рига", kid="Бук")
+added_candy = CandiesService.add(candy_1)
+all = CandiesService.list()
+first = CandiesService.get(36)
+print(f"{added_candy=}")
+print()
+print(f"{all=}")
+print()
+print(f"{first=}")
